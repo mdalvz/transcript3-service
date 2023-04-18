@@ -7,10 +7,12 @@ import {
 import { createSessionHandler } from './operation/CreateSession';
 import { createAccountHandler } from './operation/CreateAccount';
 import { AccountTable } from './table/AccountTable';
+import { SessionTable } from './table/SessionTable';
 
 async function main() {
 
   await AccountTable.instance.initialize();
+  await SessionTable.instance.initialize();
 
   const app = express();
   app.use(cors());

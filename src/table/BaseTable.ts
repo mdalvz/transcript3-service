@@ -1,6 +1,6 @@
 import { knex, Knex } from 'knex';
 
-export class BaseTable {
+export abstract class BaseTable {
 
   protected readonly connection: Knex;
 
@@ -12,5 +12,7 @@ export class BaseTable {
       },
     });
   }
+
+  public abstract initialize(): Promise<void>;
 
 }

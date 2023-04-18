@@ -1,5 +1,6 @@
 import { Knex } from 'knex';
-export declare class BaseTable {
+export declare abstract class BaseTable {
     protected readonly connection: Knex;
     constructor();
+    abstract initialize(): Promise<void>;
 }
