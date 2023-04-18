@@ -6,7 +6,8 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "commit": "npm run build && git add . && git commit -m `Build`"
+    "commit": "npm run build && git add . && git commit -m `Build`",
+    "start": "npm run build && node ./lib/index.js"
   },
   "keywords": [],
   "author": "Malcolm Alvarez",
