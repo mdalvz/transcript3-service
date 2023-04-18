@@ -6,12 +6,21 @@ import {
 } from 'transcript3-model';
 import { createSessionHandler } from './operation/CreateSession';
 import { createAccountHandler } from './operation/CreateAccount';
+import { AccountTable } from './table/AccountTable';
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+async function main() {
 
-app.post(CreateAccountResource, createAccountHandler);
-app.post(CreateSessionResource, createSessionHandler);
+  await AccountTable.instance.initialize();
 
-app.listen(3000);
+  const app = express();
+  app.use(cors());
+  app.use(express.json());
+
+  app.post(CreateAccountResource, createAccountHandler);
+  app.post(CreateSessionResource, createSessionHandler);
+
+  app.listen(3000);
+
+}
+
+main();
