@@ -3,7 +3,9 @@ export interface ClassRecord {
     transcriptId: string;
     subject: string;
     name: string;
-    grade: number;
+    level: number;
     year: string;
     provider: string;
+    type: string;
+    grade: string;
 }
