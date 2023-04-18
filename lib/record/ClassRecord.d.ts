@@ -8,4 +8,6 @@ export interface ClassRecord {
     provider: string;
     type: string;
     grade: string;
+    awarded: number;
+    attempted: number;
 }

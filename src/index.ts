@@ -8,11 +8,13 @@ import { createSessionHandler } from './operation/CreateSession';
 import { createAccountHandler } from './operation/CreateAccount';
 import { AccountTable } from './table/AccountTable';
 import { SessionTable } from './table/SessionTable';
+import { ClassTable } from './table/ClassTable';
 
 async function main() {
 
   await AccountTable.instance.initialize();
   await SessionTable.instance.initialize();
+  await ClassTable.instance.initialize();
 
   const app = express();
   app.use(cors());

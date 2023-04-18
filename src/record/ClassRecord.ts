@@ -19,6 +19,8 @@ export interface ClassRecord {
 
   grade: string;
 
-  
+  awarded: number;
+
+  attempted: number;
 
 }
