@@ -1,0 +1,27 @@
+{
+  "name": "transcript3-service",
+  "version": "1.0.0",
+  "description": "Transcript generator service",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "commit": "npm run build && git add . && git commit -m `Build`"
+  },
+  "keywords": [],
+  "author": "Malcolm Alvarez",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/node": "^18.15.11",
+    "@types/cors": "^2.8.13",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "knex": "^2.4.2",
+    "transcript3-model": "github:mdalvz/transcript3-model",
+    "zod": "^3.21.4"
+  }
+}
