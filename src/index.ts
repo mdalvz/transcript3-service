@@ -28,6 +28,9 @@ import { deleteClassHandler } from './operation/DeleteClass';
 import { listClassesHandler } from './operation/ListClasses';
 import { updateClassHandler } from './operation/UpdateClass';
 import { TranscriptTable } from './table/TranscriptTable';
+import { DocumentTable } from './table/DocumentTable';
+import { DocumentManager } from './manager/DocumentManager';
+import { MediaManager } from './manager/MediaManager';
 
 async function main() {
 
@@ -35,10 +38,13 @@ async function main() {
   await SessionTable.instance.initialize();
   await ClassTable.instance.initialize();
   await TranscriptTable.instance.initialize();
+  await DocumentTable.instance.initialize();
+  await DocumentManager.instance.initialize();
 
   const app = express();
   app.use(cors());
   app.use(express.json());
+  app.use('/media', express.static(MediaManager.MEDIA_DIRECTORY));
 
   app.post(CreateAccountResource, createAccountHandler);
   app.post(CreateSessionResource, createSessionHandler);
