@@ -67,6 +67,16 @@ export class TranscriptTable extends BaseTable {
     return result;
   }
 
+  public async getTranscript(transcriptId: string): Promise<TranscriptRecord> {
+    let result = await this.connection<TranscriptRecord>(this.TABLE_NAME)
+      .select('*')
+      .where(this.TRANSCRIPT_ID, transcriptId);
+    if (result.length === 0) {
+      throw new Error('Transcript does not exist');
+    }
+    return result[0];
+  }
+
   public async putTranscript(record: TranscriptRecord) {
     await this.connection<TranscriptRecord>(this.TABLE_NAME)
       .insert(record);

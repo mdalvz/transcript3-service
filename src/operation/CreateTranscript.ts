@@ -9,7 +9,7 @@ import { authenticatedOperationHandler } from './Common';
 import { TranscriptTable } from '../table/TranscriptTable';
 
 export async function createTranscript(
-  request: CreateTranscriptRequest, 
+  _: CreateTranscriptRequest, 
   accountEmail: string
 ): Promise<CreateTranscriptResponse> {
 

@@ -26,6 +26,7 @@ export declare class TranscriptTable extends BaseTable {
     constructor();
     initialize(): Promise<void>;
     listTranscripts(accountEmail: string): Promise<TranscriptRecord[]>;
+    getTranscript(transcriptId: string): Promise<TranscriptRecord>;
     putTranscript(record: TranscriptRecord): Promise<void>;
     updateTranscript(record: TranscriptRecord): Promise<void>;
     deleteTranscript(transcriptId: string): Promise<void>;
