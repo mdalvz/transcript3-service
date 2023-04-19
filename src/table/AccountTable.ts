@@ -8,10 +8,8 @@ export class AccountTable extends BaseTable {
   private readonly TABLE_NAME = 'accounts';
 
   private readonly EMAIL_NAME = 'accountEmail';
-
-  private readonly HASH_NAME = 'accountPasswordHash';
-
-  private readonly SALT_NAME = 'accountPasswordSalt';
+  private readonly HASH_NAME  = 'accountPasswordHash';
+  private readonly SALT_NAME  = 'accountPasswordSalt';
 
   public constructor() {
     super();

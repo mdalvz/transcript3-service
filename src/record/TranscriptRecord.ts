@@ -3,6 +3,8 @@ export interface TranscriptRecord {
 
   transcriptId: string;
 
+  accountEmail: string;
+
   schoolName: string;
 
   schoolAddress: string;

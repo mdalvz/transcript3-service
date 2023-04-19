@@ -7,27 +7,17 @@ export class ClassTable extends BaseTable {
 
   private readonly TABLE_NAME = 'classes';
 
-  private readonly ID_NAME = 'classId';
-
+  private readonly ID_NAME            = 'classId';
   private readonly TRANSCRIPT_ID_NAME = 'transcriptId';
-
-  private readonly SUBJECT_NAME = 'subject';
-
-  private readonly NAME_NAME = 'name';
-
-  private readonly LEVEL_NAME = 'level';
-
-  private readonly YEAR_NAME = 'year';
-
-  private readonly PROVIDER_NAME = 'provider';
-
-  private readonly TYPE_NAME = 'type';
-
-  private readonly GRADE_NAME = 'grade';
-
-  private readonly AWARDED_NAME = 'awarded';
-
-  private readonly ATTEMPTED_NAME = 'attempted';
+  private readonly SUBJECT_NAME       = 'subject';
+  private readonly NAME_NAME          = 'name';
+  private readonly LEVEL_NAME         = 'level';
+  private readonly YEAR_NAME          = 'year';
+  private readonly PROVIDER_NAME      = 'provider';
+  private readonly TYPE_NAME          = 'type';
+  private readonly GRADE_NAME         = 'grade';
+  private readonly AWARDED_NAME       = 'awarded';
+  private readonly ATTEMPTED_NAME     = 'attempted';
 
   public constructor() {
     super();

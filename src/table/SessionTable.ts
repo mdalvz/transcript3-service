@@ -7,11 +7,9 @@ export class SessionTable extends BaseTable {
 
   private readonly TABLE_NAME = 'sessions';
 
-  private readonly ID_NAME = 'sessionToken';
-
-  private readonly EMAIL_NAME = 'accountEmail';
-
-  private readonly EXPIRATION_NAME = 'expirationDate';
+  private readonly ID_NAME          = 'sessionToken';
+  private readonly EMAIL_NAME       = 'accountEmail';
+  private readonly EXPIRATION_NAME  = 'expirationDate';
 
   public constructor() {
     super();
