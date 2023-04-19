@@ -7,6 +7,8 @@
   "scripts": {
     "build": "tsc",
     "commit": "npm run build && git add . && git commit -m `Build`",
+    "commit-push": "npm run commit && git push",
+    "update-model": "npm i https://github.com/mdalvz/transcript3-model.git",
     "start": "npm run build && node ./lib/index.js"
   },
   "keywords": [],
