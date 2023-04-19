@@ -7,9 +7,9 @@ export class AccountTable extends BaseTable {
 
   private readonly TABLE_NAME = 'accounts';
 
-  private readonly EMAIL_NAME = 'accountEmail';
-  private readonly HASH_NAME  = 'accountPasswordHash';
-  private readonly SALT_NAME  = 'accountPasswordSalt';
+  private readonly ACCOUNT_EMAIL          = 'accountEmail';
+  private readonly ACCOUNT_PASSWORD_HASH  = 'accountPasswordHash';
+  private readonly ACCOUNT_PASSWORD_SALT  = 'accountPasswordSalt';
 
   public constructor() {
     super();
@@ -18,9 +18,9 @@ export class AccountTable extends BaseTable {
   public async initialize(): Promise<void> {
     if (!await this.connection.schema.hasTable(this.TABLE_NAME)) {
       await this.connection.schema.createTable(this.TABLE_NAME, (table) => {
-        table.text(this.EMAIL_NAME).primary();
-        table.text(this.HASH_NAME);
-        table.text(this.SALT_NAME);
+        table.text(this.ACCOUNT_EMAIL).primary();
+        table.text(this.ACCOUNT_PASSWORD_HASH);
+        table.text(this.ACCOUNT_PASSWORD_SALT);
       });
     }
   }
@@ -28,7 +28,7 @@ export class AccountTable extends BaseTable {
   public async getAccount(accountEmail: string): Promise<AccountRecord> {
     let result = await this.connection<AccountRecord>(this.TABLE_NAME)
       .select('*')
-      .where(this.EMAIL_NAME, accountEmail);
+      .where(this.ACCOUNT_EMAIL, accountEmail);
     if (result.length === 0) {
       throw new Error('Account does not exist');
     }
@@ -38,7 +38,7 @@ export class AccountTable extends BaseTable {
   public async putAccount(record: AccountRecord) {
     let result = await this.connection<AccountRecord>(this.TABLE_NAME)
       .select('*')
-      .where(this.EMAIL_NAME, record.accountEmail);
+      .where(this.ACCOUNT_EMAIL, record.accountEmail);
     if (result.length !== 0) {
       throw new Error('Account email already in use');
     }

@@ -3,9 +3,9 @@ import { BaseTable } from './BaseTable';
 export declare class SessionTable extends BaseTable {
     static readonly instance: SessionTable;
     private readonly TABLE_NAME;
-    private readonly ID_NAME;
-    private readonly EMAIL_NAME;
-    private readonly EXPIRATION_NAME;
+    private readonly SESSION_TOKEN;
+    private readonly ACCOUNT_EMAIL;
+    private readonly EXPIRATION_DATE;
     constructor();
     initialize(): Promise<void>;
     getSession(sessionToken: string): Promise<SessionRecord>;

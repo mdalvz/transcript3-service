@@ -7,17 +7,17 @@ export class ClassTable extends BaseTable {
 
   private readonly TABLE_NAME = 'classes';
 
-  private readonly ID_NAME            = 'classId';
-  private readonly TRANSCRIPT_ID_NAME = 'transcriptId';
-  private readonly SUBJECT_NAME       = 'subject';
-  private readonly NAME_NAME          = 'name';
-  private readonly LEVEL_NAME         = 'level';
-  private readonly YEAR_NAME          = 'year';
-  private readonly PROVIDER_NAME      = 'provider';
-  private readonly TYPE_NAME          = 'type';
-  private readonly GRADE_NAME         = 'grade';
-  private readonly AWARDED_NAME       = 'awarded';
-  private readonly ATTEMPTED_NAME     = 'attempted';
+  private readonly CLASS_ID       = 'classId';
+  private readonly TRANSCRIPT_ID  = 'transcriptId';
+  private readonly SUBJECT        = 'subject';
+  private readonly NAME           = 'name';
+  private readonly LEVEL          = 'level';
+  private readonly YEAR           = 'year';
+  private readonly PROVIDER       = 'provider';
+  private readonly TYPE           = 'type';
+  private readonly GRADE          = 'grade';
+  private readonly AWARDED        = 'awarded';
+  private readonly ATTEMPTED      = 'attempted';
 
   public constructor() {
     super();
@@ -26,18 +26,18 @@ export class ClassTable extends BaseTable {
   public async initialize(): Promise<void> {
     if (!await this.connection.schema.hasTable(this.TABLE_NAME)) {
       await this.connection.schema.createTable(this.TABLE_NAME, (table) => {
-        table.text(this.ID_NAME).primary();
-        table.text(this.TRANSCRIPT_ID_NAME);
-        table.text(this.SUBJECT_NAME);
-        table.text(this.NAME_NAME);
-        table.bigInteger(this.LEVEL_NAME);
-        table.text(this.YEAR_NAME);
-        table.text(this.PROVIDER_NAME);
-        table.text(this.TYPE_NAME);
-        table.text(this.GRADE_NAME);
-        table.bigInteger(this.AWARDED_NAME);
-        table.bigInteger(this.ATTEMPTED_NAME);
-        table.index([this.TRANSCRIPT_ID_NAME]);
+        table.text(this.CLASS_ID).primary();
+        table.text(this.TRANSCRIPT_ID);
+        table.text(this.SUBJECT);
+        table.text(this.NAME);
+        table.bigInteger(this.LEVEL);
+        table.text(this.YEAR);
+        table.text(this.PROVIDER);
+        table.text(this.TYPE);
+        table.text(this.GRADE);
+        table.bigInteger(this.AWARDED);
+        table.bigInteger(this.ATTEMPTED);
+        table.index([this.TRANSCRIPT_ID]);
       });
     }
   }
@@ -45,7 +45,7 @@ export class ClassTable extends BaseTable {
   public async listClasses(transcriptId: string): Promise<ClassRecord[]> {
     let result = await this.connection<ClassRecord>(this.TABLE_NAME)
       .select('*')
-      .where(this.TRANSCRIPT_ID_NAME, transcriptId);
+      .where(this.TRANSCRIPT_ID, transcriptId);
     return result;
   }
 
@@ -57,13 +57,13 @@ export class ClassTable extends BaseTable {
   public async updateClass(record: ClassRecord) {
     await this.connection<ClassRecord>(this.TABLE_NAME)
       .update(record)
-      .where(this.ID_NAME, record.classId);
+      .where(this.CLASS_ID, record.classId);
   }
 
   public async deleteClass(classId: string) {
     await this.connection<ClassRecord>(this.TABLE_NAME)
       .delete()
-      .where(this.ID_NAME, classId);
+      .where(this.CLASS_ID, classId);
   }
 
 }

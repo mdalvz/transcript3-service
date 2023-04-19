@@ -7,26 +7,26 @@ export class TranscriptTable extends BaseTable {
 
   private readonly TABLE_NAME = 'transcripts';
 
-  private readonly ID_NAME                  = 'transcriptId';
-  private readonly ACCOUNT_EMAIL_NAME       = 'accountEmail';
-  private readonly SCHOOL_NAME              = 'schoolName';
-  private readonly SCHOOL_ADDRESS_NAME      = 'schoolAddress';
-  private readonly ADMIN_TITLE_NAME         = 'adminTitle';
-  private readonly ADMIN_NAME               = 'adminName';
-  private readonly ADMIN_PHONE_NAME         = 'adminPhone';
-  private readonly ADMIN_EMAIL_NAME         = 'adminEmail';
-  private readonly STUDENT_FIRST_NAME       = 'studentNameFirst';
-  private readonly STUDENT_MIDDLE_NAME      = 'studentNameMiddle';
-  private readonly STUDENT_LAST_NAME        = 'studentNameLast';
-  private readonly STUDENT_SUFFIX_NAME      = 'studentNameSuffix';
-  private readonly STUDENT_BIRTH_DATE_NAME  = 'studentBirthDate';
-  private readonly STUDENT_ADDRESS_NAME     = 'studentAddress';
-  private readonly STUDENT_PHONE_NAME       = 'studentPhone';
-  private readonly STUDENT_EMAIL_NAME       = 'studentEmail';
-  private readonly TRANSCRIPT_TITLE_NAME    = 'transcriptTitle';
-  private readonly TRANSCRIPT_LOGO_NAME     = 'transcriptLogo';
-  private readonly ARRANGE_BY_GRADE_NAME    = 'arrangeByGrade';
-  private readonly WEIGHTED_GPA_NAME        = 'computeWeightedGPA';
+  private readonly TRANSCRIPT_ID        = 'transcriptId';
+  private readonly ACCOUNT_EMAIL        = 'accountEmail';
+  private readonly SCHOOL_NAME          = 'schoolName';
+  private readonly SCHOOL_ADDRESS       = 'schoolAddress';
+  private readonly ADMIN_TITLE          = 'adminTitle';
+  private readonly ADMIN_NAME           = 'adminName';
+  private readonly ADMIN_PHONE          = 'adminPhone';
+  private readonly ADMIN_EMAIL          = 'adminEmail';
+  private readonly STUDENT_NAME_FIRST   = 'studentNameFirst';
+  private readonly STUDENT_NAME_MIDDLE  = 'studentNameMiddle';
+  private readonly STUDENT_NAME_LAST    = 'studentNameLast';
+  private readonly STUDENT_NAME_SUFFIX  = 'studentNameSuffix';
+  private readonly STUDENT_BIRTH_DATE   = 'studentBirthDate';
+  private readonly STUDENT_ADDRESS      = 'studentAddress';
+  private readonly STUDENT_PHONE        = 'studentPhone';
+  private readonly STUDENT_EMAIL        = 'studentEmail';
+  private readonly TRANSCRIPT_TITLE     = 'transcriptTitle';
+  private readonly TRANSCRIPT_LOGO      = 'transcriptLogo';
+  private readonly ARRANGE_BY_GRADE     = 'arrangeByGrade';
+  private readonly WEIGHTED_GPA         = 'computeWeightedGPA';
 
   public constructor() {
     super();
@@ -35,27 +35,27 @@ export class TranscriptTable extends BaseTable {
   public async initialize(): Promise<void> {
     if (!await this.connection.schema.hasTable(this.TABLE_NAME)) {
       await this.connection.schema.createTable(this.TABLE_NAME, (table) => {
-        table.text(this.ID_NAME).primary();
-        table.text(this.ACCOUNT_EMAIL_NAME);
+        table.text(this.TRANSCRIPT_ID).primary();
+        table.text(this.ACCOUNT_EMAIL);
         table.text(this.SCHOOL_NAME);
-        table.text(this.SCHOOL_ADDRESS_NAME);
-        table.text(this.ADMIN_TITLE_NAME);
+        table.text(this.SCHOOL_ADDRESS);
+        table.text(this.ADMIN_TITLE);
         table.text(this.ADMIN_NAME);
-        table.text(this.ADMIN_PHONE_NAME);
-        table.text(this.ADMIN_EMAIL_NAME);
-        table.text(this.STUDENT_FIRST_NAME);
-        table.text(this.STUDENT_LAST_NAME);
-        table.text(this.STUDENT_MIDDLE_NAME);
-        table.text(this.STUDENT_SUFFIX_NAME);
-        table.text(this.STUDENT_BIRTH_DATE_NAME);
-        table.text(this.STUDENT_ADDRESS_NAME);
-        table.text(this.STUDENT_PHONE_NAME);
-        table.text(this.STUDENT_EMAIL_NAME);
-        table.text(this.TRANSCRIPT_TITLE_NAME);
-        table.text(this.TRANSCRIPT_LOGO_NAME);
-        table.boolean(this.ARRANGE_BY_GRADE_NAME);
-        table.boolean(this.WEIGHTED_GPA_NAME);
-        table.index([this.ACCOUNT_EMAIL_NAME]);
+        table.text(this.ADMIN_PHONE);
+        table.text(this.ADMIN_EMAIL);
+        table.text(this.STUDENT_NAME_FIRST);
+        table.text(this.STUDENT_NAME_LAST);
+        table.text(this.STUDENT_NAME_MIDDLE);
+        table.text(this.STUDENT_NAME_SUFFIX);
+        table.text(this.STUDENT_BIRTH_DATE);
+        table.text(this.STUDENT_ADDRESS);
+        table.text(this.STUDENT_PHONE);
+        table.text(this.STUDENT_EMAIL);
+        table.text(this.TRANSCRIPT_TITLE);
+        table.text(this.TRANSCRIPT_LOGO);
+        table.boolean(this.ARRANGE_BY_GRADE);
+        table.boolean(this.WEIGHTED_GPA);
+        table.index([this.ACCOUNT_EMAIL]);
       });
     }
   }
@@ -63,7 +63,7 @@ export class TranscriptTable extends BaseTable {
   public async listTranscripts(accountEmail: string): Promise<TranscriptRecord[]> {
     let result = await this.connection<TranscriptRecord>(this.TABLE_NAME)
       .select('*')
-      .where(this.ACCOUNT_EMAIL_NAME, accountEmail);
+      .where(this.ACCOUNT_EMAIL, accountEmail);
     return result;
   }
 
@@ -75,13 +75,13 @@ export class TranscriptTable extends BaseTable {
   public async updateTranscript(record: TranscriptRecord) {
     await this.connection<TranscriptRecord>(this.TABLE_NAME)
       .update(record)
-      .where(this.ID_NAME, record.transcriptId);
+      .where(this.TRANSCRIPT_ID, record.transcriptId);
   }
 
   public async deleteTranscript(transcriptId: string) {
     await this.connection<TranscriptRecord>(this.TABLE_NAME)
       .delete()
-      .where(this.ID_NAME, transcriptId);
+      .where(this.TRANSCRIPT_ID, transcriptId);
   }
 
 }
