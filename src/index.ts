@@ -7,6 +7,7 @@ import {
   DeleteTranscriptResource,
   ListTranscriptsResource,
   UpdateTranscriptResource,
+  GetTranscriptResource,
 } from 'transcript3-model';
 import { AccountTable } from './table/AccountTable';
 import { SessionTable } from './table/SessionTable';
@@ -17,6 +18,7 @@ import { createTranscriptHandler } from './operation/CreateTranscript';
 import { deleteTranscriptHandler } from './operation/DeleteTranscript';
 import { listTranscriptsHandler } from './operation/ListTranscripts';
 import { updateTranscriptHandler } from './operation/UpdateTranscript';
+import { getTranscriptHandler } from './operation/GetTranscript';
 import { TranscriptTable } from './table/TranscriptTable';
 
 async function main() {
@@ -36,6 +38,7 @@ async function main() {
   app.post(DeleteTranscriptResource, deleteTranscriptHandler);
   app.post(ListTranscriptsResource, listTranscriptsHandler);
   app.post(UpdateTranscriptResource, updateTranscriptHandler);
+  app.post(GetTranscriptResource, getTranscriptHandler);
 
   app.listen(3000);
 

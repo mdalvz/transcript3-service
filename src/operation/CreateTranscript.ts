@@ -32,8 +32,8 @@ export async function createTranscript(
     studentEmail: '',
     transcriptTitle: '',
     transcriptLogo: '',
-    arrangeByGrade: true,
-    computeWeightedGPA: true,
+    arrangeByGrade: 1,
+    computeWeightedGPA: 1,
   };
   await TranscriptTable.instance.putTranscript(record);
   return record;
