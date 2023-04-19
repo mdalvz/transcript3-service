@@ -9,6 +9,7 @@ export class TranscriptTable extends BaseTable {
 
   private readonly TRANSCRIPT_ID            = 'transcriptId';
   private readonly ACCOUNT_EMAIL            = 'accountEmail';
+  private readonly IS_K12                   = 'isK12';
   private readonly SCHOOL_NAME              = 'schoolName';
   private readonly SCHOOL_ADDRESS           = 'schoolAddress';
   private readonly ADMIN_TITLE              = 'adminTitle';
@@ -38,6 +39,7 @@ export class TranscriptTable extends BaseTable {
       await this.connection.schema.createTable(this.TABLE_NAME, (table) => {
         table.text(this.TRANSCRIPT_ID).primary();
         table.text(this.ACCOUNT_EMAIL);
+        table.integer(this.IS_K12);
         table.text(this.SCHOOL_NAME);
         table.text(this.SCHOOL_ADDRESS);
         table.text(this.ADMIN_TITLE);
@@ -55,8 +57,8 @@ export class TranscriptTable extends BaseTable {
         table.text(this.STUDENT_EMAIL);
         table.text(this.TRANSCRIPT_TITLE);
         table.text(this.TRANSCRIPT_LOGO);
-        table.boolean(this.ARRANGE_BY_GRADE);
-        table.boolean(this.WEIGHTED_GPA);
+        table.integer(this.ARRANGE_BY_GRADE);
+        table.integer(this.WEIGHTED_GPA);
         table.index([this.ACCOUNT_EMAIL]);
       });
     }

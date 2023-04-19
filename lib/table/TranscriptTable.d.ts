@@ -5,6 +5,7 @@ export declare class TranscriptTable extends BaseTable {
     private readonly TABLE_NAME;
     private readonly TRANSCRIPT_ID;
     private readonly ACCOUNT_EMAIL;
+    private readonly IS_K12;
     private readonly SCHOOL_NAME;
     private readonly SCHOOL_ADDRESS;
     private readonly ADMIN_TITLE;

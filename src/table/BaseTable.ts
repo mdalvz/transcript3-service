@@ -10,6 +10,7 @@ export abstract class BaseTable {
       connection: {
         filename: './data.db',
       },
+      useNullAsDefault: true,
     });
   }
 

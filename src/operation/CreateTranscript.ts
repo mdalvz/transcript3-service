@@ -16,6 +16,7 @@ export async function createTranscript(
   let record: Transcript = {
     transcriptId: uuidv4(),
     accountEmail,
+    isK12: -1,
     schoolName: '',
     schoolAddress: '',
     adminTitle: '',

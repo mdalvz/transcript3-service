@@ -31,14 +31,14 @@ export class ClassTable extends BaseTable {
         table.text(this.TRANSCRIPT_ID);
         table.text(this.SUBJECT);
         table.text(this.NAME);
-        table.bigInteger(this.LEVEL);
+        table.integer(this.LEVEL);
         table.text(this.TERM);
         table.text(this.YEAR);
         table.text(this.PROVIDER);
         table.text(this.TYPE);
         table.text(this.GRADE);
-        table.bigInteger(this.AWARDED);
-        table.bigInteger(this.ATTEMPTED);
+        table.integer(this.AWARDED);
+        table.integer(this.ATTEMPTED);
         table.index([this.TRANSCRIPT_ID]);
       });
     }
@@ -66,6 +66,16 @@ export class ClassTable extends BaseTable {
     await this.connection<ClassRecord>(this.TABLE_NAME)
       .delete()
       .where(this.CLASS_ID, classId);
+  }
+
+  public async getClass(classId: string): Promise<ClassRecord> {
+    let result = await this.connection<ClassRecord>(this.TABLE_NAME)
+      .select('*')
+      .where(this.CLASS_ID, classId);
+    if (result.length === 0) {
+      throw new Error('Class does not exist');
+    }
+    return result[0];
   }
 
 }
