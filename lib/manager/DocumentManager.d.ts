@@ -3,5 +3,6 @@ export declare class DocumentManager extends MediaManager {
     static readonly instance: DocumentManager;
     static readonly DOCUMENT_DIRECTORY: string;
     initialize(): Promise<void>;
-    createDocument(): Promise<string>;
+    createDocument(html: string): Promise<string>;
+    private createDocumentRecord;
 }
