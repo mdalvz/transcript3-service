@@ -7,26 +7,27 @@ export class TranscriptTable extends BaseTable {
 
   private readonly TABLE_NAME = 'transcripts';
 
-  private readonly TRANSCRIPT_ID        = 'transcriptId';
-  private readonly ACCOUNT_EMAIL        = 'accountEmail';
-  private readonly SCHOOL_NAME          = 'schoolName';
-  private readonly SCHOOL_ADDRESS       = 'schoolAddress';
-  private readonly ADMIN_TITLE          = 'adminTitle';
-  private readonly ADMIN_NAME           = 'adminName';
-  private readonly ADMIN_PHONE          = 'adminPhone';
-  private readonly ADMIN_EMAIL          = 'adminEmail';
-  private readonly STUDENT_NAME_FIRST   = 'studentNameFirst';
-  private readonly STUDENT_NAME_MIDDLE  = 'studentNameMiddle';
-  private readonly STUDENT_NAME_LAST    = 'studentNameLast';
-  private readonly STUDENT_NAME_SUFFIX  = 'studentNameSuffix';
-  private readonly STUDENT_BIRTH_DATE   = 'studentBirthDate';
-  private readonly STUDENT_ADDRESS      = 'studentAddress';
-  private readonly STUDENT_PHONE        = 'studentPhone';
-  private readonly STUDENT_EMAIL        = 'studentEmail';
-  private readonly TRANSCRIPT_TITLE     = 'transcriptTitle';
-  private readonly TRANSCRIPT_LOGO      = 'transcriptLogo';
-  private readonly ARRANGE_BY_GRADE     = 'arrangeByGrade';
-  private readonly WEIGHTED_GPA         = 'computeWeightedGPA';
+  private readonly TRANSCRIPT_ID            = 'transcriptId';
+  private readonly ACCOUNT_EMAIL            = 'accountEmail';
+  private readonly SCHOOL_NAME              = 'schoolName';
+  private readonly SCHOOL_ADDRESS           = 'schoolAddress';
+  private readonly ADMIN_TITLE              = 'adminTitle';
+  private readonly ADMIN_NAME               = 'adminName';
+  private readonly ADMIN_PHONE              = 'adminPhone';
+  private readonly ADMIN_EMAIL              = 'adminEmail';
+  private readonly STUDENT_NAME_FIRST       = 'studentNameFirst';
+  private readonly STUDENT_NAME_MIDDLE      = 'studentNameMiddle';
+  private readonly STUDENT_NAME_LAST        = 'studentNameLast';
+  private readonly STUDENT_NAME_SUFFIX      = 'studentNameSuffix';
+  private readonly STUDENT_BIRTH_DATE       = 'studentBirthDate';
+  private readonly STUDENT_GRADUATION_DATE  = 'studentGraduationDate';
+  private readonly STUDENT_ADDRESS          = 'studentAddress';
+  private readonly STUDENT_PHONE            = 'studentPhone';
+  private readonly STUDENT_EMAIL            = 'studentEmail';
+  private readonly TRANSCRIPT_TITLE         = 'transcriptTitle';
+  private readonly TRANSCRIPT_LOGO          = 'transcriptLogo';
+  private readonly ARRANGE_BY_GRADE         = 'arrangeByGrade';
+  private readonly WEIGHTED_GPA             = 'computeWeightedGPA';
 
   public constructor() {
     super();
@@ -48,6 +49,7 @@ export class TranscriptTable extends BaseTable {
         table.text(this.STUDENT_NAME_MIDDLE);
         table.text(this.STUDENT_NAME_SUFFIX);
         table.text(this.STUDENT_BIRTH_DATE);
+        table.text(this.STUDENT_GRADUATION_DATE);
         table.text(this.STUDENT_ADDRESS);
         table.text(this.STUDENT_PHONE);
         table.text(this.STUDENT_EMAIL);

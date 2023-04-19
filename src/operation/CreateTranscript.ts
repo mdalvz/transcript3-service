@@ -27,6 +27,7 @@ export async function createTranscript(
     studentNameLast: '',
     studentNameSuffix: '',
     studentBirthDate: '',
+    studentGraduationDate: '',
     studentAddress: '',
     studentPhone: '',
     studentEmail: '',

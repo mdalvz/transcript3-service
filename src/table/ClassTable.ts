@@ -12,6 +12,7 @@ export class ClassTable extends BaseTable {
   private readonly SUBJECT        = 'subject';
   private readonly NAME           = 'name';
   private readonly LEVEL          = 'level';
+  private readonly TERM           = 'term';
   private readonly YEAR           = 'year';
   private readonly PROVIDER       = 'provider';
   private readonly TYPE           = 'type';
@@ -31,6 +32,7 @@ export class ClassTable extends BaseTable {
         table.text(this.SUBJECT);
         table.text(this.NAME);
         table.bigInteger(this.LEVEL);
+        table.text(this.TERM);
         table.text(this.YEAR);
         table.text(this.PROVIDER);
         table.text(this.TYPE);

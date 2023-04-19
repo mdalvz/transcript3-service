@@ -8,6 +8,7 @@ export declare class ClassTable extends BaseTable {
     private readonly SUBJECT;
     private readonly NAME;
     private readonly LEVEL;
+    private readonly TERM;
     private readonly YEAR;
     private readonly PROVIDER;
     private readonly TYPE;
