@@ -31,6 +31,7 @@ import { TranscriptTable } from './table/TranscriptTable';
 import { DocumentTable } from './table/DocumentTable';
 import { DocumentManager } from './manager/DocumentManager';
 import { MediaManager } from './manager/MediaManager';
+import { readFile } from 'fs/promises';
 
 async function main() {
 
@@ -45,6 +46,8 @@ async function main() {
   app.use(cors());
   app.use(express.json());
   app.use('/media', express.static(MediaManager.MEDIA_DIRECTORY));
+
+  await DocumentManager.instance.createDocument(await readFile('template.html', 'utf8'));
 
   app.post(CreateAccountResource, createAccountHandler);
   app.post(CreateSessionResource, createSessionHandler);

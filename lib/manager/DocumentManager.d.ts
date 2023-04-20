@@ -5,4 +5,5 @@ export declare class DocumentManager extends MediaManager {
     initialize(): Promise<void>;
     createDocument(html: string): Promise<string>;
     private createDocumentRecord;
+    private initializeDirectoryCleaner;
 }
