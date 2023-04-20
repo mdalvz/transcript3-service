@@ -7,4 +7,6 @@ export interface AccountRecord {
 
   accountPasswordSalt: string;
 
+  accountActivated: number;
+
 }

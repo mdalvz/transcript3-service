@@ -6,6 +6,7 @@ export declare class AccountTable extends BaseTable {
     private readonly ACCOUNT_EMAIL;
     private readonly ACCOUNT_PASSWORD_HASH;
     private readonly ACCOUNT_PASSWORD_SALT;
+    private readonly ACCOUNT_ACTIVATED;
     constructor();
     initialize(): Promise<void>;
     getAccount(accountEmail: string): Promise<AccountRecord>;

@@ -10,6 +10,7 @@ export class AccountTable extends BaseTable {
   private readonly ACCOUNT_EMAIL          = 'accountEmail';
   private readonly ACCOUNT_PASSWORD_HASH  = 'accountPasswordHash';
   private readonly ACCOUNT_PASSWORD_SALT  = 'accountPasswordSalt';
+  private readonly ACCOUNT_ACTIVATED      = 'accountActivated';
 
   public constructor() {
     super();
@@ -21,6 +22,7 @@ export class AccountTable extends BaseTable {
         table.text(this.ACCOUNT_EMAIL).primary();
         table.text(this.ACCOUNT_PASSWORD_HASH);
         table.text(this.ACCOUNT_PASSWORD_SALT);
+        table.integer(this.ACCOUNT_ACTIVATED);
       });
     }
   }

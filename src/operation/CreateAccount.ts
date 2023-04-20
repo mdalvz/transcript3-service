@@ -15,6 +15,7 @@ export async function createAccount(request: CreateAccountRequest): Promise<Crea
     accountEmail: request.accountEmail,
     accountPasswordHash,
     accountPasswordSalt,
+    accountActivated: 0,
   });
   return {};
 }

@@ -12,6 +12,8 @@ import {
   DeleteClassResource,
   ListClassesResource,
   UpdateClassResource,
+  GenerateTranscriptResource,
+  GetAccountResource,
 } from 'transcript3-model';
 import { AccountTable } from './table/AccountTable';
 import { SessionTable } from './table/SessionTable';
@@ -27,11 +29,12 @@ import { createClassHandler } from './operation/CreateClass';
 import { deleteClassHandler } from './operation/DeleteClass';
 import { listClassesHandler } from './operation/ListClasses';
 import { updateClassHandler } from './operation/UpdateClass';
+import { generateTranscriptHandler } from './operation/GenerateTranscript';
+import { getAccountHandler } from './operation/GetAccount';
 import { TranscriptTable } from './table/TranscriptTable';
 import { DocumentTable } from './table/DocumentTable';
 import { DocumentManager } from './manager/DocumentManager';
 import { MediaManager } from './manager/MediaManager';
-import { readFile } from 'fs/promises';
 
 async function main() {
 
@@ -47,8 +50,6 @@ async function main() {
   app.use(express.json());
   app.use('/media', express.static(MediaManager.MEDIA_DIRECTORY));
 
-  await DocumentManager.instance.createDocument(await readFile('template.html', 'utf8'));
-
   app.post(CreateAccountResource, createAccountHandler);
   app.post(CreateSessionResource, createSessionHandler);
   app.post(CreateTranscriptResource, createTranscriptHandler);
@@ -60,6 +61,8 @@ async function main() {
   app.post(DeleteClassResource, deleteClassHandler);
   app.post(UpdateClassResource, updateClassHandler);
   app.post(ListClassesResource, listClassesHandler);
+  app.post(GenerateTranscriptResource, generateTranscriptHandler);
+  app.post(GetAccountResource, getAccountHandler);
 
   console.log('Started transcript3-service');
   app.listen(3000);
