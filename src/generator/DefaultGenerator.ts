@@ -304,11 +304,11 @@ export class DefaultGenerator extends BaseGenerator {
         ));
       }
       container.appendChild(this.generateCourseworkHeaderCell(
-        `${totalAttempted}`,
+        totalAttempted.toFixed(1),
         true
       ));
       container.appendChild(this.generateCourseworkHeaderCell(
-        `${totalAwarded}`,
+        totalAwarded.toFixed(1),
         true
       ));
 
@@ -340,11 +340,11 @@ export class DefaultGenerator extends BaseGenerator {
           true
         ));
         container.appendChild(this.generateCourseworkCell(
-          `${e.attempted === 0 ? '' : e.attempted}`,
+          `${e.attempted === 0 ? '' : e.attempted.toFixed(1)}`,
           true
         ));
         container.appendChild(this.generateCourseworkCell(
-          `${e.attempted === 0 ? '' : e.awarded}`,
+          `${e.attempted === 0 ? '' : e.awarded.toFixed(1)}`,
           true
         ));
       }
