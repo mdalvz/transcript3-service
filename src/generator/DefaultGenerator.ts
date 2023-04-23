@@ -33,6 +33,7 @@ export class DefaultGenerator extends BaseGenerator {
 
     root.appendChild(this.generateHeader());
     root.appendChild(this.generateInformation());
+    root.appendChild(this.generateCoursework());
 
     return root;
 
@@ -207,6 +208,181 @@ export class DefaultGenerator extends BaseGenerator {
     entry.appendChild(right);
 
     return entry;
+
+  }
+
+  private generateCoursework(): HTMLElement {
+    if (this.transcript.arrangeByGrade) {
+      return this.generateCourseworkBySubject();
+    } else {
+      return this.generateCourseworkBySubject();
+    }
+  }
+
+  private generateCourseworkBySubject(): HTMLElement {
+
+    let container = this.document.createElement('div');
+    container.style.display             = 'grid';
+    container.style.gridTemplateColumns = '1.5fr 50px 1fr 100px 50px 50px 60px 50px';
+
+    container.appendChild(this.generateCourseworkHeaderCell(
+      'Subjects / Courses',
+      false
+    ));
+    container.appendChild(this.generateCourseworkHeaderCell(
+      'Grade Level',
+      false
+    ));
+    container.appendChild(this.generateCourseworkHeaderCell(
+      'Course Provider',
+      false
+    ));
+    container.appendChild(this.generateCourseworkHeaderCell(
+      'Term',
+      false
+    ));
+    container.appendChild(this.generateCourseworkHeaderCell(
+      'Type',
+      false
+    ));
+    container.appendChild(this.generateCourseworkHeaderCell(
+      'Grade',
+      false
+    ));
+    container.appendChild(this.generateCourseworkHeaderCell(
+      'Credit Attempted',
+      false
+    ));
+    container.appendChild(this.generateCourseworkHeaderCell(
+      'Credit Awarded',
+      false
+    ));
+
+    let subjects = [
+      'English Language Arts',
+      'Mathematics',
+      'Social Studies',
+      'Science',
+      'World Languages',
+      'Arts',
+      'Physical Education',
+      'Electives',
+    ];
+    let classes = new Map<string, ClassRecord[]>();
+    for (let e of this.classes) {
+      if (subjects.indexOf(e.subject) < 0) {
+        throw new Error(`Invalid subject "${e.subject}"`);
+      }
+      if (classes.has(e.subject)) {
+        classes.get(e.subject)?.push(e);
+      } else {
+        classes.set(e.subject, [e]);
+      }
+    }
+
+    for (let subject of subjects) {
+
+      let subjectClasses = classes.get(subject);
+      if (!subjectClasses || subjectClasses.length === 0) {
+        continue;
+      }
+      let totalAttempted = subjectClasses
+        .map((e, i, a) => e.attempted)
+        .reduce((a, b) => a + b, 0);
+      let totalAwarded = subjectClasses
+        .map((e, i, a) => e.awarded)
+        .reduce((a, b) => a + b, 0);
+
+      container.appendChild(this.generateCourseworkHeaderCell(
+        subject,
+        true
+      ));
+      for (let i = 0; i < 5; ++i) {
+        container.appendChild(this.generateCourseworkHeaderCell(
+          '',
+          true
+        ));
+      }
+      container.appendChild(this.generateCourseworkHeaderCell(
+        `${totalAttempted}`,
+        true
+      ));
+      container.appendChild(this.generateCourseworkHeaderCell(
+        `${totalAwarded}`,
+        true
+      ));
+
+      subjectClasses.sort((a, b) => a.level - b.level);
+
+      for (let e of subjectClasses) {
+        container.appendChild(this.generateCourseworkCell(
+          e.name,
+          false
+        ));
+        container.appendChild(this.generateCourseworkCell(
+          e.level === 0 ? 'K' : `${e.level}`,
+          true
+        ));
+        container.appendChild(this.generateCourseworkCell(
+          e.provider,
+          false
+        ));
+        container.appendChild(this.generateCourseworkCell(
+          `${e.term} ${e.year}`,
+          true
+        ));
+        container.appendChild(this.generateCourseworkCell(
+          `${e.type}`,
+          true
+        ));
+        container.appendChild(this.generateCourseworkCell(
+          `${e.grade}`,
+          true
+        ));
+        container.appendChild(this.generateCourseworkCell(
+          `${e.attempted === 0 ? '' : e.attempted}`,
+          true
+        ));
+        container.appendChild(this.generateCourseworkCell(
+          `${e.attempted === 0 ? '' : e.awarded}`,
+          true
+        ));
+      }
+      
+    }
+
+    return container;
+
+  }
+
+  private generateCourseworkHeaderCell(content: string, sub: boolean): HTMLElement {
+
+    let container = this.document.createElement('div');
+    container.style.display         = 'flex';
+    container.style.flexDirection   = 'column';
+    container.style.justifyContent  = 'center';
+    container.style.alignItems      = 'center';
+    container.style.backgroundColor = !sub ? 'rgb(221, 221, 221)' : 'rgb(238, 238, 238)';
+    container.style.fontWeight      = 'bold';
+    container.style.padding         = !sub ? '5px' : '2px';
+
+    let inner = this.document.createElement('div');
+    inner.innerHTML = `${content}`;
+    inner.style.textAlign = 'center';
+    container.appendChild(inner);
+
+    return container;
+
+  }
+
+  private generateCourseworkCell(content: string, center: boolean): HTMLElement {
+
+    let container = this.document.createElement('div');
+    container.style.textAlign = !center ? 'left' : 'center';
+    container.style.padding   = '2px';
+    container.innerHTML = `${content}`;
+
+    return container;
 
   }
 
