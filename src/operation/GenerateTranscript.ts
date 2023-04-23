@@ -7,6 +7,7 @@ import { authenticatedOperationHandler } from './Common';
 import { TranscriptTable } from '../table/TranscriptTable';
 import { DefaultGenerator } from '../generator/DefaultGenerator';
 import { AccountTable } from '../table/AccountTable';
+import { ClassTable } from '../table/ClassTable';
 
 export async function generateTranscript(
   request: GenerateTranscriptRequest, 
@@ -17,8 +18,9 @@ export async function generateTranscript(
   if (transcript.accountEmail !== accountEmail) {
     throw new Error('Transcript is owned by another account');
   }
+  let classes = await ClassTable.instance.listClasses(request.transcriptId);
   let account = await AccountTable.instance.getAccount(accountEmail);
-  let generator = new DefaultGenerator(account, transcript);
+  let generator = new DefaultGenerator(account, transcript, classes);
   let documentName = await generator.generate();
   return {
     // Kind of a hack to remove the '.'

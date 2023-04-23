@@ -2,6 +2,7 @@ import { JSDOM } from 'jsdom';
 import { AccountRecord } from '../record/AccountRecord';
 import { TranscriptRecord } from '../record/TranscriptRecord';
 import { DocumentManager } from '../manager/DocumentManager';
+import { ClassRecord } from '../record/ClassRecord';
 
 export abstract class BaseGenerator {
 
@@ -13,11 +14,18 @@ export abstract class BaseGenerator {
 
   protected readonly transcript: TranscriptRecord;
 
-  public constructor(account: AccountRecord, transcript: TranscriptRecord) {
+  protected readonly classes: ClassRecord[];
+
+  public constructor(
+    account: AccountRecord, 
+    transcript: TranscriptRecord,
+    classes: ClassRecord[]) {
+
     this.jsdom = new JSDOM();
     this.document = this.jsdom.window.document;
     this.account = account;
     this.transcript = transcript;
+    this.classes = classes;
   }
 
   protected abstract onGenerate(): Promise<void>;

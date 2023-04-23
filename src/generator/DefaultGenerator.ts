@@ -1,11 +1,16 @@
 import { AccountRecord } from '../record/AccountRecord';
+import { ClassRecord } from '../record/ClassRecord';
 import { TranscriptRecord } from '../record/TranscriptRecord';
 import { BaseGenerator } from './BaseGenerator';
 
 export class DefaultGenerator extends BaseGenerator {
 
-  public constructor(account: AccountRecord, transcript: TranscriptRecord) {
-    super(account, transcript);
+  public constructor(
+    account: AccountRecord, 
+    transcript: TranscriptRecord,
+    classes: ClassRecord[]) {
+
+    super(account, transcript, classes);
   }
 
   public async onGenerate() {
@@ -181,7 +186,7 @@ export class DefaultGenerator extends BaseGenerator {
         ));
       }
     }
-    
+
     return container;
 
   }
