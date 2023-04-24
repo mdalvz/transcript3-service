@@ -16,6 +16,8 @@ export declare class DefaultGenerator extends BaseGenerator {
     private generateInformationEntry;
     private generateCoursework;
     private generateCourseworkBySubject;
+    private generateCourseworkByGrade;
     private generateCourseworkHeaderCell;
     private generateCourseworkCell;
+    private generateTermString;
 }

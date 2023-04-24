@@ -236,7 +236,7 @@ export class DefaultGenerator extends BaseGenerator {
 
   private generateCoursework(): HTMLElement {
     if (this.transcript.arrangeByGrade) {
-      return this.generateCourseworkBySubject();
+      return this.generateCourseworkByGrade();
     } else {
       return this.generateCourseworkBySubject();
     }
@@ -335,7 +335,14 @@ export class DefaultGenerator extends BaseGenerator {
         true
       ));
 
-      subjectClasses.sort((a, b) => a.level - b.level);
+      subjectClasses.sort((a, b) => {
+        let x = a.level - b.level;
+        if (x !== 0) {
+          return x;
+        }
+        let y = this.generateTermString(a).localeCompare(this.generateTermString(b));
+        return y;
+      });
 
       for (let e of subjectClasses) {
         container.appendChild(this.generateCourseworkCell(
@@ -351,7 +358,133 @@ export class DefaultGenerator extends BaseGenerator {
           false
         ));
         container.appendChild(this.generateCourseworkCell(
-          `${e.term} ${e.year}`,
+          this.generateTermString(e),
+          true
+        ));
+        container.appendChild(this.generateCourseworkCell(
+          e.type.join(', '),
+          true
+        ));
+        container.appendChild(this.generateCourseworkCell(
+          `${e.grade}`,
+          true
+        ));
+        container.appendChild(this.generateCourseworkCell(
+          `${e.attempted === 0 ? '' : e.attempted.toFixed(1)}`,
+          true
+        ));
+        container.appendChild(this.generateCourseworkCell(
+          `${e.attempted === 0 ? '' : e.awarded.toFixed(1)}`,
+          true
+        ));
+      }
+      
+    }
+
+    return container;
+
+  }
+
+  private generateCourseworkByGrade(): HTMLElement {
+
+    let container = this.document.createElement('div');
+    container.style.display             = 'grid';
+    container.style.gridTemplateColumns = '1.5fr 1fr 100px 50px 50px 60px 50px';
+
+    container.appendChild(this.generateCourseworkHeaderCell(
+      'Grade Levels / Courses',
+      false
+    ));
+    container.appendChild(this.generateCourseworkHeaderCell(
+      'Course Provider',
+      false
+    ));
+    container.appendChild(this.generateCourseworkHeaderCell(
+      'Term',
+      false
+    ));
+    container.appendChild(this.generateCourseworkHeaderCell(
+      'Type',
+      false
+    ));
+    container.appendChild(this.generateCourseworkHeaderCell(
+      'Grade',
+      false
+    ));
+    container.appendChild(this.generateCourseworkHeaderCell(
+      'Credit Attempted',
+      false
+    ));
+    container.appendChild(this.generateCourseworkHeaderCell(
+      'Credit Awarded',
+      false
+    ));
+
+    let minLevel = 0;
+    let maxLevel = 12;
+    let classes = new Map<number, ClassRecord[]>();
+    for (let e of this.classes) {
+      if (e.level < 0 || e.level > 12) {
+        throw new Error(`Invalid grade level ${e.level}`);
+      }
+      if (e.level < minLevel) {
+        minLevel = e.level;
+      }
+      if (e.level > maxLevel) {
+        maxLevel = e.level;
+      }
+      if (classes.has(e.level)) {
+        classes.get(e.level)?.push(e);
+      } else {
+        classes.set(e.level, [e]);
+      }
+    }
+
+    for (let level = minLevel; level <= maxLevel; ++level) {
+
+      let levelClasses = classes.get(level);
+      if (!levelClasses || levelClasses.length === 0) {
+        continue;
+      }
+      let totalAttempted = levelClasses
+        .map((e, i, a) => e.attempted)
+        .reduce((a, b) => a + b, 0);
+      let totalAwarded = levelClasses
+        .map((e, i, a) => e.awarded)
+        .reduce((a, b) => a + b, 0);
+
+      container.appendChild(this.generateCourseworkHeaderCell(
+        level !== 0 ? `Grade ${level}` : 'Kindergarten',
+        true
+      ));
+      for (let i = 0; i < 4; ++i) {
+        container.appendChild(this.generateCourseworkHeaderCell(
+          '',
+          true
+        ));
+      }
+      container.appendChild(this.generateCourseworkHeaderCell(
+        totalAttempted.toFixed(1),
+        true
+      ));
+      container.appendChild(this.generateCourseworkHeaderCell(
+        totalAwarded.toFixed(1),
+        true
+      ));
+
+      levelClasses.sort((a, b) => this.generateTermString(a).localeCompare(this.generateTermString(b)));
+
+      for (let e of levelClasses) {
+        container.appendChild(this.generateCourseworkCell(
+          e.name,
+          false
+        ));
+        container.appendChild(this.generateCourseworkCell(
+          e.provider,
+          false
+        ));
+        container.appendChild(this.generateCourseworkCell(
+          this.generateTermString(e),
           true
         ));
         container.appendChild(this.generateCourseworkCell(
@@ -407,6 +540,10 @@ export class DefaultGenerator extends BaseGenerator {
 
     return container;
 
+  }
+
+  private generateTermString(record: ClassRecord): string {
+    return `${record.term} ${record.year}`;
   }
 
 }
