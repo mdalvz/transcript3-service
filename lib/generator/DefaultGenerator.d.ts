@@ -5,6 +5,7 @@ import { BaseGenerator } from './BaseGenerator';
 export declare class DefaultGenerator extends BaseGenerator {
     constructor(account: AccountRecord, transcript: TranscriptRecord, classes: ClassRecord[]);
     onGenerate(): Promise<void>;
+    private generateWatermark;
     private generateRoot;
     private generateHeader;
     private generateInformation;

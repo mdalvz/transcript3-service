@@ -24,7 +24,7 @@ export class DocumentManager extends MediaManager {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.setContent(html, { waitUntil: 'load' });
-    await page.emulateMediaType('screen');
+    await page.emulateMediaType('print');
     await page.pdf({
       path,
       margin: { top: '0.25in', right: '0.25in', bottom: '0.25in', left: '0.25in' },
