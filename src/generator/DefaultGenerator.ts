@@ -30,16 +30,16 @@ export class DefaultGenerator extends BaseGenerator {
   private generateWatermark(): HTMLElement {
 
     let container = this.document.createElement('div');
-    container.style.position = 'fixed';
-    container.style.left = '0';
-    container.style.top = '0';
-    container.style.width = 'calc(100vw * 2)';
-    container.style.height = 'calc(100vh * 2)';
-    container.style.overflow = 'hidden';
-    container.style.zIndex = '1000';
-    container.style.color = 'gray';
-    container.style.fontSize = '24px';
-    container.style.opacity = '0.2';
+    container.style.position  = 'fixed';
+    container.style.left      = '0';
+    container.style.top       = '0';
+    container.style.width     = 'calc(100vw * 2)';
+    container.style.height    = 'calc(100vh * 2)';
+    container.style.overflow  = 'hidden';
+    container.style.zIndex    = '1000';
+    container.style.color     = 'gray';
+    container.style.fontSize  = '24px';
+    container.style.opacity   = '0.2';
 
     container.innerHTML = ('PROOF ').repeat(10000);
 
