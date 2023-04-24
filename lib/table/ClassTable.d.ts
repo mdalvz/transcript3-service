@@ -22,4 +22,6 @@ export declare class ClassTable extends BaseTable {
     updateClass(record: ClassRecord): Promise<void>;
     deleteClass(classId: string): Promise<void>;
     getClass(classId: string): Promise<ClassRecord>;
+    private fromInternal;
+    private toInternal;
 }

@@ -332,7 +332,7 @@ export class DefaultGenerator extends BaseGenerator {
           true
         ));
         container.appendChild(this.generateCourseworkCell(
-          `${e.type}`,
+          e.type.join(', '),
           true
         ));
         container.appendChild(this.generateCourseworkCell(

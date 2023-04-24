@@ -21,7 +21,7 @@ export async function createClass(
   let record: Class = {
     classId: uuidv4(),
     transcriptId: transcript.transcriptId,
-    type: '',
+    type: [],
     name: '',
     year: '',
     term: '',

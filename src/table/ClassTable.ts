@@ -1,4 +1,4 @@
-import { ClassRecord } from '../record/ClassRecord';
+import { ClassRecord, ClassRecordInternal } from '../record/ClassRecord';
 import { BaseTable } from './BaseTable';
 
 export class ClassTable extends BaseTable {
@@ -45,37 +45,51 @@ export class ClassTable extends BaseTable {
   }
 
   public async listClasses(transcriptId: string): Promise<ClassRecord[]> {
-    let result = await this.connection<ClassRecord>(this.TABLE_NAME)
+    let result = await this.connection<ClassRecordInternal>(this.TABLE_NAME)
       .select('*')
       .where(this.TRANSCRIPT_ID, transcriptId);
-    return result;
+    return result.map((e, i, a) => this.fromInternal(e));
   }
 
   public async putClass(record: ClassRecord) {
-    await this.connection<ClassRecord>(this.TABLE_NAME)
-      .insert(record);
+    await this.connection<ClassRecordInternal>(this.TABLE_NAME)
+      .insert(this.toInternal(record));
   }
 
   public async updateClass(record: ClassRecord) {
-    await this.connection<ClassRecord>(this.TABLE_NAME)
-      .update(record)
+    await this.connection<ClassRecordInternal>(this.TABLE_NAME)
+      .update(this.toInternal(record))
       .where(this.CLASS_ID, record.classId);
   }
 
   public async deleteClass(classId: string) {
-    await this.connection<ClassRecord>(this.TABLE_NAME)
+    await this.connection<ClassRecordInternal>(this.TABLE_NAME)
       .delete()
       .where(this.CLASS_ID, classId);
   }
 
   public async getClass(classId: string): Promise<ClassRecord> {
-    let result = await this.connection<ClassRecord>(this.TABLE_NAME)
+    let result = await this.connection<ClassRecordInternal>(this.TABLE_NAME)
       .select('*')
       .where(this.CLASS_ID, classId);
     if (result.length === 0) {
       throw new Error('Class does not exist');
     }
-    return result[0];
+    return this.fromInternal(result[0]);
+  }
+
+  private fromInternal(record: ClassRecordInternal): ClassRecord {
+    return {
+      ...record,
+      type: JSON.parse(record.type),
+    }
+  }
+
+  private toInternal(record: ClassRecord): ClassRecordInternal {
+    return {
+      ...record,
+      type: JSON.stringify(record.type),
+    }
   }
 
 }
