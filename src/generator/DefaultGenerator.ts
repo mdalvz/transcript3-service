@@ -242,6 +242,16 @@ export class DefaultGenerator extends BaseGenerator {
     }
   }
 
+  private generateTermIndex(term: string): number {
+    return [
+      'Full Year',
+      'Fall',
+      'Winter',
+      'Spring',
+      'Summer'
+    ].indexOf(term);
+  }
+
   private generateCourseworkBySubject(): HTMLElement {
 
     let container = this.document.createElement('div');
@@ -340,7 +350,9 @@ export class DefaultGenerator extends BaseGenerator {
         if (x !== 0) {
           return x;
         }
-        let y = this.generateTermString(a).localeCompare(this.generateTermString(b));
+        let y =
+          this.generateTermIndex(a.term) -
+          this.generateTermIndex(b.term);
         return y;
       });
 
@@ -359,7 +371,7 @@ export class DefaultGenerator extends BaseGenerator {
         ));
         container.appendChild(this.generateCourseworkCell(
           this.generateTermString(e),
-          true
+          false
         ));
         container.appendChild(this.generateCourseworkCell(
           e.type.join(', '),
@@ -472,7 +484,12 @@ export class DefaultGenerator extends BaseGenerator {
         true
       ));
 
-      levelClasses.sort((a, b) => this.generateTermString(a).localeCompare(this.generateTermString(b)));
+      levelClasses.sort((a, b) => {
+        let x =
+          this.generateTermIndex(a.term) -
+          this.generateTermIndex(b.term);
+        return x;
+      });
 
       for (let e of levelClasses) {
         container.appendChild(this.generateCourseworkCell(
@@ -485,7 +502,7 @@ export class DefaultGenerator extends BaseGenerator {
         ));
         container.appendChild(this.generateCourseworkCell(
           this.generateTermString(e),
-          true
+          false
         ));
         container.appendChild(this.generateCourseworkCell(
           e.type.join(', '),
