@@ -20,5 +20,4 @@ export declare class DefaultGenerator extends BaseGenerator {
     private generateCourseworkByGrade;
     private generateCourseworkHeaderCell;
     private generateCourseworkCell;
-    private generateTermString;
 }

@@ -245,10 +245,10 @@ export class DefaultGenerator extends BaseGenerator {
   private generateTermIndex(term: string): number {
     return [
       'Full Year',
-      'Fall',
       'Winter',
       'Spring',
-      'Summer'
+      'Summer',
+      'Fall',
     ].indexOf(term);
   }
 
@@ -256,7 +256,7 @@ export class DefaultGenerator extends BaseGenerator {
 
     let container = this.document.createElement('div');
     container.style.display             = 'grid';
-    container.style.gridTemplateColumns = '1.5fr 50px 1fr 100px 50px 50px 60px 50px';
+    container.style.gridTemplateColumns = '1.5fr 50px 1fr 50px 50px 50px 50px 60px 50px';
 
     container.appendChild(this.generateCourseworkHeaderCell(
       'Subjects / Courses',
@@ -272,6 +272,10 @@ export class DefaultGenerator extends BaseGenerator {
     ));
     container.appendChild(this.generateCourseworkHeaderCell(
       'Term',
+      false
+    ));
+    container.appendChild(this.generateCourseworkHeaderCell(
+      'Year',
       false
     ));
     container.appendChild(this.generateCourseworkHeaderCell(
@@ -330,7 +334,7 @@ export class DefaultGenerator extends BaseGenerator {
         subject,
         true
       ));
-      for (let i = 0; i < 5; ++i) {
+      for (let i = 0; i < 6; ++i) {
         container.appendChild(this.generateCourseworkHeaderCell(
           '',
           true
@@ -349,6 +353,10 @@ export class DefaultGenerator extends BaseGenerator {
         let x = a.level - b.level;
         if (x !== 0) {
           return x;
+        }
+        let z = a.year.localeCompare(b.year);
+        if (z !== 0) {
+          return z;
         }
         let y =
           this.generateTermIndex(a.term) -
@@ -370,8 +378,12 @@ export class DefaultGenerator extends BaseGenerator {
           false
         ));
         container.appendChild(this.generateCourseworkCell(
-          this.generateTermString(e),
+          e.term,
           false
+        ));
+        container.appendChild(this.generateCourseworkCell(
+          e.year,
+          true
         ));
         container.appendChild(this.generateCourseworkCell(
           e.type.join(', '),
@@ -401,7 +413,7 @@ export class DefaultGenerator extends BaseGenerator {
 
     let container = this.document.createElement('div');
     container.style.display             = 'grid';
-    container.style.gridTemplateColumns = '1.5fr 1fr 100px 50px 50px 60px 50px';
+    container.style.gridTemplateColumns = '1.5fr 1fr 50px 50px 50px 50px 60px 50px';
 
     container.appendChild(this.generateCourseworkHeaderCell(
       'Grade Levels / Courses',
@@ -413,6 +425,10 @@ export class DefaultGenerator extends BaseGenerator {
     ));
     container.appendChild(this.generateCourseworkHeaderCell(
       'Term',
+      false
+    ));
+    container.appendChild(this.generateCourseworkHeaderCell(
+      'Year',
       false
     ));
     container.appendChild(this.generateCourseworkHeaderCell(
@@ -469,7 +485,7 @@ export class DefaultGenerator extends BaseGenerator {
         level !== 0 ? `Grade ${level}` : 'Kindergarten',
         true
       ));
-      for (let i = 0; i < 4; ++i) {
+      for (let i = 0; i < 5; ++i) {
         container.appendChild(this.generateCourseworkHeaderCell(
           '',
           true
@@ -485,10 +501,15 @@ export class DefaultGenerator extends BaseGenerator {
       ));
 
       levelClasses.sort((a, b) => {
-        let x =
-          this.generateTermIndex(a.term) -
-          this.generateTermIndex(b.term);
-        return x;
+        let x = a.year.localeCompare(b.year);
+        if (x === 0) {
+          let y =
+            this.generateTermIndex(a.term) -
+            this.generateTermIndex(b.term);
+          return y;
+        } else {
+          return x;
+        }
       });
 
       for (let e of levelClasses) {
@@ -501,8 +522,12 @@ export class DefaultGenerator extends BaseGenerator {
           false
         ));
         container.appendChild(this.generateCourseworkCell(
-          this.generateTermString(e),
+          e.term,
           false
+        ));
+        container.appendChild(this.generateCourseworkCell(
+          e.year,
+          true
         ));
         container.appendChild(this.generateCourseworkCell(
           e.type.join(', '),
@@ -557,10 +582,6 @@ export class DefaultGenerator extends BaseGenerator {
 
     return container;
 
-  }
-
-  private generateTermString(record: ClassRecord): string {
-    return `${record.term} ${record.year}`;
   }
 
 }
